@@ -1,5 +1,7 @@
 import 'package:app_hortifruit_pratico/app/modules/dashboard/binding.dart';
 import 'package:app_hortifruit_pratico/app/modules/dashboard/page.dart';
+import 'package:app_hortifruit_pratico/app/modules/product/binding.dart';
+import 'package:app_hortifruit_pratico/app/modules/product/page.dart';
 import 'package:app_hortifruit_pratico/app/modules/store/binding.dart';
 import 'package:app_hortifruit_pratico/app/modules/store/page.dart';
 import 'package:app_hortifruit_pratico/app/routes/routes.dart';
@@ -14,8 +16,13 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.store,
-      page: () => StorePage(),
+      page: () => const StorePage(),
       binding: StoreBinding(),
+    ),
+    GetPage(
+      name: Routes.product,
+      page: () => ProductPage(),
+      binding: ProductBinding(),
     ),
   ];
 }
