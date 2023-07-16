@@ -1,3 +1,4 @@
+import 'package:app_hortifruit_pratico/app/modules/home/page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -10,7 +11,6 @@ class DashboardPage extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Dashboard')),
         bottomNavigationBar: Obx(
           () => NavigationBar(
 
@@ -42,7 +42,7 @@ class DashboardPage extends GetView<DashboardController> {
             index: controller.currentPageIndex.value,
 
             children: const [
-              Text('Inicio'),
+              HomePage(),
               Text('Meu perfil'),
               Text('Meus pedidos'),
             ],

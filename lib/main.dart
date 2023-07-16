@@ -1,4 +1,5 @@
 import 'package:app_hortifruit_pratico/app/core/theme/app_theme.dart';
+import 'package:app_hortifruit_pratico/app/data/providers/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,8 @@ import 'app/routes/pages.dart';
 import 'app/routes/routes.dart';
 
 void main() {
+  Get.put<Api>(Api());
+
   Intl.defaultLocale = 'pt_BR';
 
   runApp(GetMaterialApp(
