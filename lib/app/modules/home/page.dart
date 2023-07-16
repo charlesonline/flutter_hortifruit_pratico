@@ -1,3 +1,4 @@
+import 'package:app_hortifruit_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -39,7 +40,7 @@ class HomePage extends GetView<HomeController> {
                           ),
                         ),
                         contentPadding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
-                        onTap: () {},
+                        onTap: () => Get.toNamed(Routes.store.replaceFirst(':id', store.id.toString())),
                       )
                   ],
                 ),
