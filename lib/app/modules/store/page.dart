@@ -78,7 +78,7 @@ class StorePage extends GetView<StoreController> {
                         ListTile(
                           title: Text(product.name),
                           // subtitle: Text(NumberFormat.simpleCurrency().format(int.parse(product.price))),
-                          subtitle: Text('RS ' + product.price),
+                          subtitle: Text('RS ' + product.price + (product.isKG ? '/Kg' : '')),
                           leading: product.image.isNotEmpty
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
