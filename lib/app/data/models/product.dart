@@ -1,7 +1,7 @@
 class ProductModel {
   late int id;
   late String name;
-  late String price;
+  late double price;
   late String unitOfMeasure;
   late String image;
   late String? description;
@@ -20,7 +20,7 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json['id'],
         name: json['nome'],
-        price: json['preco'],
+        price: double.parse(json['preco']),
         unitOfMeasure: json['unidade'],
         image: json['imagem'],
         description: json['descricao'],
