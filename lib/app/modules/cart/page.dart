@@ -10,18 +10,19 @@ class CartPage extends GetView<CartController> {
     return Scaffold(
         appBar: AppBar(title: const Text('Meu carrinho')),
         body: SingleChildScrollView(
-          child: Obx(()=>Column(
-            children: [
-              for (var cartProduct in controller.products)
-                ListTile(
-                  title: Text(cartProduct.product.name),
-                  subtitle: Text(
-                      '${NumberFormat.simpleCurrency().format(cartProduct.total)} (${NumberFormat.simpleCurrency().format(cartProduct.product.price)})'),
-                  leading: _buildProductQuantity(cartProduct),
-                  trailing: IconButton(onPressed: () => controller.removePrduct(cartProduct), icon: const Icon(Icons.delete)),
-                )
-            ],
-          )),
+          child: Obx(
+            () => Column(
+              children: [
+                for (var cartProduct in controller.products)
+                  ListTile(
+                    title: Text(cartProduct.product.name),
+                    subtitle: Text('${NumberFormat.simpleCurrency().format(cartProduct.total)} (${NumberFormat.simpleCurrency().format(cartProduct.product.price)})'),
+                    leading: _buildProductQuantity(cartProduct),
+                    trailing: IconButton(onPressed: () => controller.removePrduct(cartProduct), icon: const Icon(Icons.delete)),
+                  )
+              ],
+          )
+        ),
         ));
   }
 
