@@ -1,3 +1,5 @@
+import 'package:app_hortifruit_pratico/app/modules/cart/binding.dart';
+import 'package:app_hortifruit_pratico/app/modules/cart/page.dart';
 import 'package:app_hortifruit_pratico/app/modules/dashboard/binding.dart';
 import 'package:app_hortifruit_pratico/app/modules/dashboard/page.dart';
 import 'package:app_hortifruit_pratico/app/modules/product/binding.dart';
@@ -21,8 +23,13 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.product,
-      page: () => ProductPage(),
+      page: () => const ProductPage(),
       binding: ProductBinding(),
+    ),
+    GetPage(
+      name: Routes.cart,
+      page: () => CartPage(),
+      binding: CartBinding(),
     ),
   ];
 }

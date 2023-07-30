@@ -12,6 +12,11 @@ class StorePage extends GetView<StoreController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.cart),
+        tooltip: 'Meu carrinho',
+        child: const Icon(Icons.shopping_cart),
+      ),
       body: controller.obx((state) => CustomScrollView(
             slivers: [
               const SliverAppBar(),
@@ -77,7 +82,9 @@ class StorePage extends GetView<StoreController> {
                       for (var product in category.products)
                         ListTile(
                           title: Text(product.name),
-                          subtitle: Text(NumberFormat.simpleCurrency().format(product.price) + (product.isKG ? '/Kg' : '')),
+                          subtitle: Text(NumberFormat.simpleCurrency()
+                                  .format(product.price) +
+                              (product.isKG ? '/Kg' : '')),
                           leading: product.image.isNotEmpty
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
@@ -92,13 +99,8 @@ class StorePage extends GetView<StoreController> {
                                       image: product.image),
                                 )
                               : null,
-                          onTap: () => Get.toNamed(
-                            Routes.product,
-                            arguments: {
-                              'product': product,
-                              'store': state
-                            }
-                          ),
+                          onTap: () => Get.toNamed(Routes.product,
+                              arguments: {'product': product, 'store': state}),
                         )
                     ],
                   );
