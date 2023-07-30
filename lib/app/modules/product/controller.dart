@@ -20,8 +20,24 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
-  void addToCart() {
+  void addToCart() async {
     var quantity = Get.find<QuantityAndWeightController>().quantity;
+
+    // //Se a loja for diferente da que esta no carrinho, vamos limpar o carrinho
+    if (_cartService.isANewStore(store.value!)) {
+      var startNewCart = await showDialogNewCart();
+
+      if (startNewCart == true) {
+        _cartService.clearCart();
+      } else {
+        return;
+      }
+    }
+
+    // //Somente vamos adcionar a loja se, o carrinho estiver vazio
+    if (_cartService.products.isEmpty) {
+      _cartService.newCart(store.value!);
+    }
 
     _cartService.addProductToCart(CartProductModel(
         product: product.value!,
@@ -37,5 +53,18 @@ class ProductController extends GetxController {
         content: Text("O item ${product.value!.name} foi adicionado")));
 
     Future.delayed(const Duration(milliseconds: 800), Get.back);
+  }
+
+  Future<dynamic> showDialogNewCart() {
+    return Get.dialog(AlertDialog(
+      content: const Text(
+          "Seu carrinho atual será perdido se adicionar um produto de outro estabelecimento"),
+      actions: [
+        TextButton(onPressed: () => Get.back(), child: const Text("Voltar")),
+        TextButton(
+            onPressed: () => Get.back(result: true),
+            child: const Text("Continuar")),
+      ],
+    ));
   }
 }
