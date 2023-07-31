@@ -5,7 +5,12 @@ import 'package:get/get.dart';
 class CartService extends GetxService {
   List<CartProductModel> products = RxList<CartProductModel>.empty();
   final store = Rxn<StoreModel>();
-  final observation = RxString('');// ''.obs <- mesma coisa
+  final observation = RxString(''); // ''.obs <- mesma coisa
+
+  num get total => products.fold(
+    0,
+    (total, cartProduct) => total + cartProduct.total
+  );
 
   void addProductToCart(CartProductModel cartProduct) {
     products.add(cartProduct);

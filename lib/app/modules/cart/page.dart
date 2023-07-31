@@ -1,5 +1,6 @@
 import 'package:app_hortifruit_pratico/app/data/models/cart_product.dart';
 import 'package:app_hortifruit_pratico/app/modules/cart/controller.dart';
+import 'package:app_hortifruit_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -47,7 +48,7 @@ class CartPage extends GetView<CartController> {
                   )
                 else
                   ElevatedButton(
-                    onPressed: (){},
+                    onPressed: () => Get.toNamed(Routes.checkout),
                     child: const Text("Avançar")
                   ),
               ],
