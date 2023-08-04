@@ -15,12 +15,13 @@ class CheckoutPage extends GetView<CheckoutController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Center(
-              child: OutlinedButton(
-                onPressed: controller.goToLogin, 
-                child: const Text("Entre com sua conta para continuar")
+            if ( !controller.isLogged ) 
+              Center(
+                child: OutlinedButton(
+                  onPressed: controller.goToLogin, 
+                  child: const Text("Entre com sua conta para continuar")
+                ),
               ),
-            ),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -89,12 +90,13 @@ class CheckoutPage extends GetView<CheckoutController> {
               ),
             ),
 
-            Align(
-              child: ElevatedButton(
-                onPressed: (){},
-                child: const Text("Enviar pedido")
+            if ( controller.isLogged )
+              Align(
+                child: ElevatedButton(
+                  onPressed: (){},
+                  child: const Text("Enviar pedido")
+                ),
               ),
-            ),
 
           ],
         )),

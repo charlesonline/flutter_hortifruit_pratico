@@ -1,12 +1,17 @@
 import 'dart:convert';
 
 import 'package:app_hortifruit_pratico/app/data/models/store.dart';
+import 'package:app_hortifruit_pratico/app/data/models/user.dart';
 import 'package:app_hortifruit_pratico/app/data/models/user_login_request.dart';
 import 'package:app_hortifruit_pratico/app/data/models/user_login_response.dart';
+import 'package:app_hortifruit_pratico/app/data/services/storage/service.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 
 class Api extends GetConnect {
+  final _storageService = Get.find<StorageService>();
+
   @override
   void onInit() {
     httpClient.baseUrl = 'http://192.168.1.239:3333/';
@@ -18,6 +23,14 @@ class Api extends GetConnect {
       return request;
     });
 
+    httpClient.addAuthenticator((Request request) {
+      var token = _storageService.token;
+      var headers = {'Authorization': "Bearer $token"};
+
+      request.headers.addAll(headers);
+      return request;
+    });
+
     super.onInit();
   }
 
@@ -25,6 +38,12 @@ class Api extends GetConnect {
     var response = _errorHandler(await post('login', jsonEncode(data)));
 
     return UserLoginResponseModel.fromJson(response.body);
+  }
+
+  Future<UserModel> getUser() async {
+    var response = _errorHandler(await get('auth/me'));
+
+    return UserModel.fromJson(response.body);
   }
 
   Future<List<StoreModel>> getStores() async {
