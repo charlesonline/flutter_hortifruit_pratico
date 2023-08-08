@@ -1,4 +1,5 @@
 import 'package:app_hortifruit_pratico/app/data/models/city.dart';
+import 'package:app_hortifruit_pratico/app/data/models/user_address_request.dart';
 import 'package:app_hortifruit_pratico/app/data/services/auth/service.dart';
 import 'package:app_hortifruit_pratico/app/modules/user_address/repository.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class UserAddressController extends GetxController
   final UserAddressRepository _repository;
   UserAddressController(this._repository);
 
+  final formKey = GlobalKey<FormState>();
   final _authService = Get.find<AuthService>();
 
   var ruaController = TextEditingController(text: 'Via Alemanhã');
@@ -29,7 +31,28 @@ class UserAddressController extends GetxController
     super.onInit();
   }
 
-  void submit() {}
+  void submit() {
+    Get.focusScope!.unfocus();
+    
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
+    var userAddressRequest = UserAddressRequestModel(
+        street: ruaController.text,
+        number: numeroController.text,
+        neighborhood: bairroController.text,
+        referencePoint: pontoreferenciaController.text,
+        cityId: cityId.value!,
+        complement: complementoController.text);
+    _repository.postAddress(userAddressRequest).then((value) {
+      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          const SnackBar(content: Text("Um novo endereço foi cadastrado")));
+    },
+        onError: (error) => Get.dialog(AlertDialog(
+              title: Text(error.toString()),
+            )));
+  }
 
   void chamgeCity(int? cityIdSelected) {
     cityId.value = cityIdSelected;

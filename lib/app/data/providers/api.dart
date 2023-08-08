@@ -4,9 +4,11 @@ import 'package:app_hortifruit_pratico/app/data/models/address.dart';
 import 'package:app_hortifruit_pratico/app/data/models/city.dart';
 import 'package:app_hortifruit_pratico/app/data/models/store.dart';
 import 'package:app_hortifruit_pratico/app/data/models/user.dart';
+import 'package:app_hortifruit_pratico/app/data/models/user_address_request.dart';
 import 'package:app_hortifruit_pratico/app/data/models/user_login_request.dart';
 import 'package:app_hortifruit_pratico/app/data/models/user_login_response.dart';
 import 'package:app_hortifruit_pratico/app/data/services/storage/service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
@@ -70,6 +72,10 @@ class Api extends GetConnect {
     return data;
   }
 
+  Future<void> postAddress(UserAddressRequestModel data) async {
+    _errorHandler(await post('enderecos', jsonEncode(data)));
+  }
+
   Future<List<StoreModel>> getStores() async {
     var response = _errorHandler(await get('cidades/1/estabelecimentos'));
 
@@ -88,7 +94,9 @@ class Api extends GetConnect {
   }
 
   Response _errorHandler(Response response) {
-    // print(response.bodyString);
+    if (kDebugMode) {
+      print(response.bodyString);
+    }
 
     switch (response.statusCode) {
       case 200:
