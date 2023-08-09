@@ -94,9 +94,9 @@ class Api extends GetConnect {
   }
 
   Response _errorHandler(Response response) {
-    if (kDebugMode) {
-      print(response.bodyString);
-    }
+    // if (kDebugMode) {
+    //   print(response.bodyString);
+    // }
 
     switch (response.statusCode) {
       case 200:
